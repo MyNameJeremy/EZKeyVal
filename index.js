@@ -54,7 +54,7 @@ if (!aggressiveSync && !noSync) setInterval(readFromFS, syncInterval);
 
 const app = new App(port);
 
-app.addResolver('/', (req, res) => {
+app.resolvers.add('/', (req, res) => {
   serveFromFS(res, './html/home.html');
 });
 
@@ -63,16 +63,16 @@ app.endpoints.add(route + '/ezkv', (req, res) => {
 });
 
 if (DEBUG_ROUTS_ENABLED) {
-  app.addResolver(route + '/debug/load', (req, res) => {
+  app.resolvers.add(route + '/debug/load', (req, res) => {
     buildRes(res, 'resyncing data', { code: 200, mime: 'text/plain' });
     readFromFS();
   });
 
-  app.addResolver(route + '/debug/data', (req, res) => {
+  app.resolvers.add(route + '/debug/data', (req, res) => {
     serveFromFS(res, dataPath);
   });
 
-  app.addResolver(route + '/debug/dump', (req, res) => {
+  app.resolvers.add(route + '/debug/dump', (req, res) => {
     WARN('dump', values);
     buildRes(res, JSON.stringify(values), { code: 200, mime: 'application/json' });
   });
