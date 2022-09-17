@@ -76,6 +76,13 @@ if (DEBUG_ROUTS_ENABLED) {
     WARN('dump', values);
     buildRes(res, JSON.stringify(values), { code: 200, mime: 'application/json' });
   });
+
+  app.resolvers.add(route + '/debug/reset', (req, res) => {
+    WARN('reset', values);
+    values = {};
+    readFromFS();
+    buildRes(res, 'resetting data', { code: 200, mime: 'text/plain' });
+  });
 }
 
 app.rest.get(route, (req, res) => {
