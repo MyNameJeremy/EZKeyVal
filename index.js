@@ -1,5 +1,4 @@
 const { readFileSync, writeFile, existsSync, lstatSync } = require('fs');
-
 const { App, buildRes, serveFromFS, getBodyJSON } = require('@peter-schweitzer/ezserver');
 
 const {
@@ -22,7 +21,7 @@ let values = {};
 /** @returns {void} */
 function writeToFS() {
   try {
-    writeFile(dataPath, JSON.stringify(values), { encoding: 'utf8', flag: 'w' }).catch;
+    writeFile(dataPath, JSON.stringify(values), { encoding: 'utf8', flag: 'w' });
   } catch (err) {
     ERR('unable to sync to FS', err);
   }
@@ -52,32 +51,30 @@ function logInteraction(a, m, k, o, n = null) {
 readFromFS();
 if (!aggressiveSync && !noSync) setInterval(readFromFS, syncInterval);
 
-const app = new App(port);
 
-app.resolvers.add('/', (req, res) => {
+const app = new App();
+app.listen(port);
+
+app.add('/', (req, res) => {
   serveFromFS(res, './html/home.html');
 });
 
-app.endpoints.add(route + '/ezkv', (req, res) => {
-  buildRes(res, 'Bad Request\nmight use unsupported method', { code: 400, mime: 'text/plain' });
-});
-
 if (DEBUG_ROUTS_ENABLED) {
-  app.resolvers.add(route + '/debug/load', (req, res) => {
+  app.add(route + '/debug/load', (req, res) => {
     buildRes(res, 'resyncing data', { code: 200, mime: 'text/plain' });
     readFromFS();
   });
 
-  app.resolvers.add(route + '/debug/data', (req, res) => {
+  app.add(route + '/debug/data', (req, res) => {
     serveFromFS(res, dataPath);
   });
 
-  app.resolvers.add(route + '/debug/dump', (req, res) => {
+  app.add(route + '/debug/dump', (req, res) => {
     WARN('dump', values);
     buildRes(res, JSON.stringify(values), { code: 200, mime: 'application/json' });
   });
 
-  app.resolvers.add(route + '/debug/reset', (req, res) => {
+  app.add(route + '/debug/reset', (req, res) => {
     WARN('reset', values);
     values = {};
     readFromFS();
@@ -85,7 +82,11 @@ if (DEBUG_ROUTS_ENABLED) {
   });
 }
 
-app.rest.get(route, (req, res) => {
+app.addRoute(route + '/ezkv', (req, res) => {
+  buildRes(res, 'Bad Request\nmight use unsupported method', { code: 400, mime: 'text/plain' });
+});
+
+app.get(route, (req, res) => {
   const key = req.url.substring(route.length + 1);
   const val = values[key];
 
@@ -96,13 +97,11 @@ app.rest.get(route, (req, res) => {
   logging && logInteraction(req.socket.remoteAddress, 'GET', key, val);
 });
 
-app.rest.put(route, async (req, res) => {
-  const old_val = values[key];
-
+app.put(route, async (req, res) => {
   const key = req.url.substring(route.length + 1);
   const { json, http_code } = await getBodyJSON(req);
 
-  values[key] = json.value || old_val;
+  values[key] = validator.validate(key, json.value) || values[key];
   res.writeHead(http_code).end();
 
   writeToFS();
