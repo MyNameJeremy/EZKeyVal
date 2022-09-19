@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+
+* {
+  padding: 0;
+  border: 0;
+  margin: 0;
+  font-family: 'JetBrains Mono', monospace;
+  color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  background: #404040;
+}
+

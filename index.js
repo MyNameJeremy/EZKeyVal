@@ -1,5 +1,5 @@
-const { readFileSync, writeFile, existsSync, lstatSync } = require('fs');
-const { App, buildRes, serveFromFS, getBodyJSON } = require('@peter-schweitzer/ezserver');
+const { readFile, writeFile, existsSync, lstatSync } = require('fs');
+const { App, buildRes, serveFromFS, getBodyJSON, throw404 } = require('@peter-schweitzer/ezserver');
 
 const {
   port = '1337',
@@ -23,7 +23,7 @@ function writeToFS() {
   try {
     writeFile(dataPath, JSON.stringify(values), { encoding: 'utf8', flag: 'w' });
   } catch (err) {
-    ERR('unable to sync to FS', err);
+    ERR('unable to write to FS', err);
   }
 }
 
@@ -79,6 +79,20 @@ if (DEBUG_ROUTS_ENABLED) {
     buildRes(res, 'resetting data', { code: 200, mime: 'text/plain' });
   });
 }
+
+app.add('/favicon.ico', throw404);
+
+app.add('/', (req, res) => {
+  serveFromFS(res, './admin_panel/index.html');
+});
+
+app.add('/values', (req, res) => {
+  buildRes(res, JSON.stringify(values), { code: 200, mime: 'application/json' });
+});
+
+app.addRoute('/', (req, res) => {
+  serveFromFS(res, `./admin_panel${req.url}`);
+});
 
 app.addRoute(route, (req, res) => {
   buildRes(res, 'Bad Request\nmight use unsupported method', { code: 400, mime: 'text/plain' });
