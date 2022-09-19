@@ -28,20 +28,18 @@ function writeToFS() {
 }
 
 function readFromFS() {
-  let vals;
-  try {
-    vals = !existsSync(dataPath)
-      ? ERR("path doesn't exist", dataPath)
-      : !lstatSync(dataPath).isFile()
-      ? ERR('path is not a file', dataPath)
-      : JSON.parse(readFileSync(dataPath));
-  } catch (error) {
-    ERR(`error while parsing ${dataPath}`, dataPath);
-  }
-
-  for (const key in vals) {
-    values[key] = vals[key];
-  }
+  readFile(dataPath, (err, data) => {
+    if (err) {
+      ERR('error while reading from FS', err);
+      existsSync(dataPath) || lstatSync(dataPath).isFile() || writeToFS();
+    } else
+      try {
+        let vals = JSON.parse(data);
+        values = vals;
+      } catch (err) {
+        ERR('error while parsing data', err);
+      }
+  });
 }
 
 function logInteraction(a, m, k, o, n = null) {
