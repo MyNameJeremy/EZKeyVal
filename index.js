@@ -58,21 +58,21 @@ app.add('/', (req, res) => {
 });
 
 if (DEBUG_ROUTS_ENABLED) {
-  app.add(route + '/debug/load', (req, res) => {
+  app.add('/debug/load', (req, res) => {
     buildRes(res, 'resyncing data', { code: 200, mime: 'text/plain' });
     readFromFS();
   });
 
-  app.add(route + '/debug/data', (req, res) => {
+  app.add('/debug/data', (req, res) => {
     serveFromFS(res, dataPath);
   });
 
-  app.add(route + '/debug/dump', (req, res) => {
+  app.add('/debug/dump', (req, res) => {
     WARN('dump', values);
     buildRes(res, JSON.stringify(values), { code: 200, mime: 'application/json' });
   });
 
-  app.add(route + '/debug/reset', (req, res) => {
+  app.add('/debug/reset', (req, res) => {
     WARN('reset', values);
     values = {};
     readFromFS();
