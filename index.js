@@ -3,8 +3,8 @@ const { App, buildRes, serveFromFS, getBodyJSON } = require('@peter-schweitzer/e
 
 const {
   port = '1337',
-  route = '/route/not/configured',
-  dataPath = 'DATAPATH_NOT_CONFIGURED',
+  route = '/ezkv',
+  dataPath = './data.json',
   logging = false,
   DEBUG_ROUTS_ENABLED = false,
   aggressiveSync = false,
