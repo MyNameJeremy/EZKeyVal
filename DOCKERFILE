@@ -1,0 +1,15 @@
+FROM node:18
+
+WORKDIR /ezkv
+
+COPY package*.json ./
+
+RUN npm i
+
+COPY . .
+
+ENV PORT=1337
+
+EXPOSE 1337
+
+CMD ["npm", "start"]

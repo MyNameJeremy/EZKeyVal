@@ -1,0 +1,7 @@
+.git
+.gitignore
+package-lock.json
+node_modules
+data.json
+DOCKERFILE
+README.md

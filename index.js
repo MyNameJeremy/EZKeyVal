@@ -51,7 +51,7 @@ if (!aggressiveSync && !noSync) setInterval(readFromFS, syncInterval);
 
 
 const app = new App();
-app.listen(port);
+app.listen(process.env.PORT || port);
 
 app.add('/', (req, res) => {
   serveFromFS(res, './html/home.html');
