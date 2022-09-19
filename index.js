@@ -80,29 +80,27 @@ if (DEBUG_ROUTS_ENABLED) {
   });
 }
 
-app.addRoute(route + '/ezkv', (req, res) => {
+app.addRoute(route, (req, res) => {
   buildRes(res, 'Bad Request\nmight use unsupported method', { code: 400, mime: 'text/plain' });
 });
 
 app.get(route, (req, res) => {
-  const key = req.url.substring(route.length + 1);
-  const val = values[key];
+  const val = values[req.url];
 
   if (aggressiveSync) values = readFromFS();
 
   buildRes(res, JSON.stringify({ value: val }), { code: 200, mime: 'application/json' });
 
-  logging && logInteraction(req.socket.remoteAddress, 'GET', key, val);
+  logging && logInteraction(req.socket.remoteAddress, 'GET', req.url, val);
 });
 
 app.put(route, async (req, res) => {
-  const key = req.url.substring(route.length + 1);
   const { json, http_code } = await getBodyJSON(req);
 
-  values[key] = validator.validate(key, json.value) || values[key];
+  values[req.url] = !validation ? json.value : validator.validate(req.url, json.value) || values[req.url];
   res.writeHead(http_code).end();
 
   writeToFS();
-  logging && logInteraction(req.socket.remoteAddress, 'PUT', key, old_val, values[key]);
+  logging && logInteraction(req.socket.remoteAddress, 'PUT', req.url, old_val, values[req.url]);
 });
 
