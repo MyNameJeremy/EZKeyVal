@@ -26,7 +26,7 @@ like this: `server.url/route/of/the/endpoint/key-you-want-to-access`.
 
 ## debug-routs
 
-routs for debugging
+routes for debugging
 
 | route                   | description                                                                   |
 | ----------------------- | ----------------------------------------------------------------------------- |
