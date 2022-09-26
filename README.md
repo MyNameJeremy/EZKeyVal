@@ -19,10 +19,10 @@ default settings
 
 ## Route-Key relation
 
-you can define the endpoint route in the config.json
+You can define the endpoint route in the config.json.
 
-you access a key by appending it to the URL of the server
-like this: `server.url/route/of/the/endpoint/key-you-want-to-access`
+You access a key by appending it to the URL of the server
+like this: `server.url/route/of/the/endpoint/key-you-want-to-access`.
 
 ## debug-routs
 
