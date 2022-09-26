@@ -1,6 +1,6 @@
 # EZKeyVal
 
-This repo is a simple key-value (values can be any valid json) store using the [EZServer template](http://http://ezserver.jeremys.social/).
+This repo is a simple key-value (values can be any valid json) store using the [EZServer template](http://ezserver.jeremys.social/).
 
 ## Config
 
