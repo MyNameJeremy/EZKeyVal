@@ -59,7 +59,7 @@ You can retrieve values by sending an http request to [a route](#route-key-relat
 
 ### Setting Values
 
-you can save/overwrite values by sending a http request to [a route](#route-key-relation)
+You can save/overwrite values by sending a http request to [a route](#route-key-relation).
 
 #### Request:
 
