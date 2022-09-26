@@ -46,7 +46,7 @@ in its directory.
 
 ### Getting Values
 
-you can retreive values by sending a http request to [a route](#route-key-relation)
+You can retrieve values by sending an http request to [a route](#route-key-relation).
 
 #### Request:
 
