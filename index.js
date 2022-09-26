@@ -49,7 +49,6 @@ function logInteraction(a, m, k, o, n = null) {
 readFromFS();
 if (!aggressiveSync && !noSync) setInterval(readFromFS, syncInterval);
 
-
 const app = new App();
 app.listen(process.env.PORT || port);
 
@@ -59,7 +58,11 @@ app.add('/', (req, res) => {
 
 if (DEBUG_ROUTS_ENABLED) {
   app.add('/debug/load', (req, res) => {
+<<<<<<< HEAD
     buildRes(res, 'resyncing data', { code: 200, mime: 'text/plain' });
+=======
+    buildRes(res, 'resyncing data');
+>>>>>>> 80f9b1f... update EZServer
     readFromFS();
   });
 
@@ -69,17 +72,18 @@ if (DEBUG_ROUTS_ENABLED) {
 
   app.add('/debug/dump', (req, res) => {
     WARN('dump', values);
-    buildRes(res, JSON.stringify(values), { code: 200, mime: 'application/json' });
+    buildRes(res, JSON.stringify(values));
   });
 
   app.add('/debug/reset', (req, res) => {
     WARN('reset', values);
     values = {};
     readFromFS();
-    buildRes(res, 'resetting data', { code: 200, mime: 'text/plain' });
+    buildRes(res, 'resetting data');
   });
 }
 
+<<<<<<< HEAD
 app.add('/favicon.ico', throw404);
 
 app.add('/', (req, res) => {
@@ -96,6 +100,10 @@ app.addRoute('/', (req, res) => {
 
 app.addRoute(route, (req, res) => {
   buildRes(res, 'Bad Request\nmight use unsupported method', { code: 400, mime: 'text/plain' });
+=======
+app.addRoute(route, (req, res) => {
+  buildRes(res, 'Bad Request\nmight have use unsupported method', { code: 400, mime: 'text/plain' });
+>>>>>>> 80f9b1f... update EZServer
 });
 
 app.get(route, (req, res) => {
@@ -117,4 +125,3 @@ app.put(route, async (req, res) => {
   writeToFS();
   logging && logInteraction(req.socket.remoteAddress, 'PUT', req.url, old_val, values[req.url]);
 });
-
