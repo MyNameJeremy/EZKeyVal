@@ -36,9 +36,9 @@ routes for debugging
 
 ## Usage
 
-you can start EZKeyVal by runing
+You can start EZKeyVal by running
 `npm run start`
-in its directory
+in its directory.
 
 - [getting values](#getting-values)
 - [setting values](#setting-values)
