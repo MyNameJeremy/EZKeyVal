@@ -58,11 +58,7 @@ app.add('/', (req, res) => {
 
 if (DEBUG_ROUTS_ENABLED) {
   app.add('/debug/load', (req, res) => {
-<<<<<<< HEAD
-    buildRes(res, 'resyncing data', { code: 200, mime: 'text/plain' });
-=======
     buildRes(res, 'resyncing data');
->>>>>>> 80f9b1f... update EZServer
     readFromFS();
   });
 
@@ -83,7 +79,6 @@ if (DEBUG_ROUTS_ENABLED) {
   });
 }
 
-<<<<<<< HEAD
 app.add('/favicon.ico', throw404);
 
 app.add('/', (req, res) => {
@@ -91,7 +86,7 @@ app.add('/', (req, res) => {
 });
 
 app.add('/values', (req, res) => {
-  buildRes(res, JSON.stringify(values), { code: 200, mime: 'application/json' });
+  buildRes(res, JSON.stringify(values), { mime: 'application/json' });
 });
 
 app.addRoute('/', (req, res) => {
@@ -99,11 +94,7 @@ app.addRoute('/', (req, res) => {
 });
 
 app.addRoute(route, (req, res) => {
-  buildRes(res, 'Bad Request\nmight use unsupported method', { code: 400, mime: 'text/plain' });
-=======
-app.addRoute(route, (req, res) => {
-  buildRes(res, 'Bad Request\nmight have use unsupported method', { code: 400, mime: 'text/plain' });
->>>>>>> 80f9b1f... update EZServer
+  buildRes(res, 'Bad Request\nmight use unsupported method', { code: 400 });
 });
 
 app.get(route, (req, res) => {
@@ -111,7 +102,7 @@ app.get(route, (req, res) => {
 
   if (aggressiveSync) values = readFromFS();
 
-  buildRes(res, JSON.stringify({ value: val }), { code: 200, mime: 'application/json' });
+  buildRes(res, JSON.stringify({ value: val }), { mime: 'application/json' });
 
   logging && logInteraction(req.socket.remoteAddress, 'GET', req.url, val);
 });
