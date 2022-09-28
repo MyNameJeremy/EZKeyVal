@@ -118,8 +118,11 @@ app.get(route, (req, res) => {
 
 app.put(route, async (req, res) => {
   const { json, http_code } = await getBodyJSON(req);
+  const key = req.url.substring(route.length + 1);
 
-  values[req.url] = !validation ? json.value : validator.validate(req.url, json.value) || values[req.url];
+  const old_val = values[key];
+  values[key] = json.value || old_val;
+
   res.writeHead(http_code).end();
 
   writeToFS();
