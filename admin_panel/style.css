@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
 
+:root {
+  --border-style: 1px solid #b0b0b0;
+}
+
 * {
   padding: 0;
   border: 0;
@@ -16,3 +20,69 @@ body {
   background: #404040;
 }
 
+.reset {
+  margin: 32px 32px;
+  position: absolute;
+  width: 192px;
+  height: 64px;
+  border-radius: 32px;
+  background: #404040;
+  box-shadow: 6px 6px 12px #1a1a1a, -6px -6px 12px #666666;
+  font-size: 32px;
+}
+
+.kv-table {
+  min-height: calc(100vh - 192px);
+  min-width: calc(100vw - 192px);
+  position: absolute;
+  margin: 64px;
+  border-radius: 64px;
+  background: #404040;
+  box-shadow: 8px 8px 16px #1a1a1a, -8px -8px 16px #666666;
+  font-size: 32px;
+  padding: 32px;
+}
+
+table#kv-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+tr {
+  height: 16px;
+  border-bottom: var(--border-style);
+}
+
+tr:first-child {
+  border-bottom: 0;
+}
+
+tr:last-child {
+  border-bottom: 0;
+}
+
+th {
+  width: 50%;
+  height: 128px;
+  text-align: center;
+}
+
+td {
+  padding-left: 32px;
+  text-align: start;
+  border-right: var(--border-style);
+  border-left: var(--border-style);
+}
+td:first-child {
+  border-left: 0;
+}
+td:last-child {
+  border-right: 0;
+}
+
+.kv-table th {
+  width: 50%;
+}
+.kv-table td {
+  width: 50%;
+}

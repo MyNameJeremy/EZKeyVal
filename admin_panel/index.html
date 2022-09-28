@@ -7,6 +7,12 @@
     <script src="/app.js" defer></script>
   </head>
   <body>
+    <script>
+      async function reset() {
+        await fetch('/debug/reset');
+        location.reload();
+      }
+    </script>
     <div id="app-main">
       <div class="kv-table">
         <button class="reset" onclick="reset()">reset</button>
