@@ -1,3 +1,5 @@
+//todo: add event listener on data.json change
+
 const { readFile, writeFile, existsSync, lstatSync } = require('fs');
 const { App, buildRes, serveFromFS, getBodyJSON, throw404 } = require('@peter-schweitzer/ezserver');
 
