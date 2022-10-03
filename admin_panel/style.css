@@ -15,17 +15,6 @@
   display: none;
 }
 
-/* .reset {
-
-  margin: 32px 32px;
-  width: 192px;
-  height: 64px;
-  border-radius: 32px;
-  background: #404040;
-  box-shadow: 6px 6px 12px #1a1a1a, -6px -6px 12px #666666;
-  font-size: 32px;
-} */
-
 .reset {
   position: absolute;
   bottom: 150px;
