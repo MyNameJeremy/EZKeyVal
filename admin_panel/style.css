@@ -79,23 +79,29 @@ table {
 table * {
   position: relative;
 }
+
 td,
 th {
   padding-left: 15px;
 }
+
 thead {
   color: #fff;
 }
+
 thead tr {
   height: 60px;
   background: #36304a;
 }
+
 tbody {
   color: #555;
 }
+
 tbody tr {
   height: 50px;
 }
+
 tbody tr:last-child {
   border: 0;
 }
