@@ -1,6 +1,6 @@
 (async () => {
   /** @type {HTMLTableElement} */
-  let table = document.getElementById('kv-table');
+  let table = document.getElementById('kv-table-body');
   let kv_pairs = await (await fetch('/values')).json();
 
   console.log(kv_pairs);
